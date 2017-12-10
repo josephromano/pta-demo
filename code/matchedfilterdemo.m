@@ -14,9 +14,9 @@ open(vidObj);
 randn('state', 31415)
 
 % discrete times
-Fs = 100;
+Fs = 64;
 deltaT = 1/Fs;
-T = 5;
+T = 4;
 N = floor(T/deltaT);
 t = linspace(0, T, N);
 % for zero-padded data
@@ -27,7 +27,7 @@ tz = linspace(0, Tz, Nz);
 % calculate profile (cosine guassian)
 
 % profile from -1 sec to 1 sec
-tp = linspace(-1,1,200);
+tp = linspace(-1,1,Fs*2);
 T0 = 0.2; % period for cosine
 p = cos(2*pi*tp/T0).*exp(-(tp/0.15).^2);
 norm = 1/sum(deltaT*p.^2);
@@ -36,11 +36,14 @@ norm = 1/sum(deltaT*p.^2);
 template = cos(2*pi*tz/T0).*exp(-(tz/0.15).^2) ...
          + cos(2*pi*(tz-Tz)/T0).*exp(-((tz-Tz)/0.15).^2);
 
-% signal is pulse centered at t0
+% signal is pulse centered at t1 and t2
 % data = signal + noise (white noise)
-t0 = 2;
-s = cos(2*pi*(t-t0)/T0).*exp(-((t-t0)/0.15).^2);
-n = 0.33*randn(size(s));
+t1 = 1.5;
+t2 = 3.5;
+s1 = cos(2*pi*(t-t1)/T0).*exp(-((t-t1)/0.15).^2);
+s2 = cos(2*pi*(t-t2)/T0).*exp(-((t-t2)/0.15).^2);
+s = s1 + s2;
+n = 0.3*randn(size(s));
 d = s+n;
 
 % correlate zero-padded data (correlate routine takes time-series)
@@ -67,12 +70,12 @@ xlabel('time (s)', 'fontsize', 14)
 ylabel('profile', 'fontsize', 14)
 print -depsc2 profile_data.eps
 
-for ii=1:100
+for ii=1:floor(N/5)+1
   figure(2)
   subplot(2,1,1)
   plot(t,d,'-b', t,timeshiftedtemplate{5*(ii-1)+1}(1:N), '-r','linewidth',2)
   xlabel('time (s)', 'fontsize', 14)
-  legend('data', 'time-shifted template')
+  legend('data', 'time-shifted template', 'location', 'southeast')
   subplot(2,1,2)
   plot(t(1:5*(ii-1)+1), C(1:5*(ii-1)+1), '-r','linewidth',2)
   xlim([0,T])
