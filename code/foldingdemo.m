@@ -37,6 +37,15 @@ s = s1 + s2 + s3 + s4;
 n = 0.3*randn(size(s));
 d = s+n;
 
+% plot data
+figure(1)
+plot(t, d, '-b', 'linewidth', 2)
+ylim([-2 2])
+xlabel('time (s)', 'fontsize', 14)
+ylabel('data', 'fontsize', 14)
+grid on
+print -depsc2 foldeddata_original.eps
+
 % break data into chunks  
 Tp = 1.6;
 Np = Tp*Fs;
@@ -51,7 +60,8 @@ d3 = d(2*Np+1:3*Np);
 d4 = d(3*Np+1:4*Np);
 d5 = d(4*Np+1:5*Np);
 foldedavg = (1/5)* (d1+d2+d3+d4+d5);
-figure(1)
+
+figure(2)
 subplot(5,1,1)
 plot(tf1, d1, '-b', 'linewidth', 2)
 xlim([tf1(1) tf1(end)])
@@ -81,7 +91,7 @@ xlabel('time (s)', 'fontsize', 14)
 ylabel('data', 'fontsize', 14)
 print -depsc2 foldeddata_incorrect_all.eps
 
-figure(2)
+figure(3)
 plot(tf1, foldedavg, '-r', 'linewidth', 2)
 xlim([tf1(1) tf1(end)])
 ylim([-1.2 1.2])
@@ -104,7 +114,7 @@ d3 = d(2*Np+1:3*Np);
 d4 = d(3*Np+1:4*Np);
 foldedavg = (1/4)*(d1+d2+d3+d4);
 
-figure(3)
+figure(4)
 subplot(4,1,1)
 plot(tf1, d1, '-b', 'linewidth', 2)
 xlim([tf1(1) tf1(end)])
@@ -128,7 +138,7 @@ xlabel('time (s)', 'fontsize', 14)
 ylabel('data', 'fontsize', 14)
 print -depsc2 foldeddata_correct_all.eps
 
-figure(4)
+figure(5)
 plot(tf1, foldedavg, '-r', 'linewidth', 2)
 xlim([tf1(1) tf1(end)])
 ylim([-1.2 1.2])
