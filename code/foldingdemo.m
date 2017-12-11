@@ -39,6 +39,7 @@ d = s+n;
 
 % plot data
 figure(1)
+subplot(4,1,1)
 plot(t, d, '-b', 'linewidth', 2)
 ylim([-2 2])
 xlabel('time (s)', 'fontsize', 14)
@@ -92,6 +93,7 @@ ylabel('data', 'fontsize', 14)
 print -depsc2 foldeddata_incorrect_all.eps
 
 figure(3)
+subplot(4,1,1)
 plot(tf1, foldedavg, '-r', 'linewidth', 2)
 xlim([tf1(1) tf1(end)])
 ylim([-1.2 1.2])
@@ -139,6 +141,7 @@ ylabel('data', 'fontsize', 14)
 print -depsc2 foldeddata_correct_all.eps
 
 figure(5)
+subplot(4,1,1)
 plot(tf1, foldedavg, '-r', 'linewidth', 2)
 xlim([tf1(1) tf1(end)])
 ylim([-1.2 1.2])
