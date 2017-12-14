@@ -48,8 +48,10 @@ PLOTHEIGHT = 3.5
 # initialize some global variables
 ts1 = np.array([])
 ts2 = np.array([])
-T1 = 0.299992
-T2 = 0.499950
+T1 = 0.2885
+T2 = 0.3261
+#T1 = 0.299992
+#T2 = 0.499950
 profile1 = np.array([])
 profile2 = np.array([])
 residuals1 = np.array([])
@@ -75,10 +77,10 @@ var_T2.set(T2)
 var_message = Tk.StringVar()
 
 # default values for variables
-var_metronome1filename.set("m200a")
-var_metronome2filename.set("m120b")
-var_metronome1bpm.set(200)
-var_metronome2bpm.set(120)
+var_metronome1filename.set("m208a")
+var_metronome2filename.set("m184b")
+var_metronome1bpm.set(208)
+var_metronome2bpm.set(184)
 
 ## ----------
 ## Build primary GUI containers

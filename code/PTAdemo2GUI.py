@@ -45,8 +45,10 @@ PLOTHEIGHT = 3.5
 
 # initialize some global variables
 ts = np.array([])
-T1 = 0.299991
-T2 = 0.499950
+T1 = 0.2885680
+T2 = 0.3260988
+#T1 = 0.299991
+#T2 = 0.499950
 profile1 = np.array([])
 profile2 = np.array([])
 residuals1 = np.array([])
@@ -86,16 +88,16 @@ var_corrcoeff = Tk.DoubleVar()
 var_message = Tk.StringVar()
 
 # default values for variables
-var_timeseriesfilename.set("m200a120b0")
-var_profile1filename.set("m200a_profile")
-var_profile2filename.set("m120b_profile")
+var_timeseriesfilename.set("m208a184b0")
+var_profile1filename.set("m208a_profile")
+var_profile2filename.set("m184b_profile")
 var_T1.set(T1)
 var_T2.set(T2)
-var_amplitude1_est.set(1e-4)
+var_amplitude1_est.set(2e-4)
 var_frequency1_est.set(0.4)
 var_phase1_est.set(0)
 var_offset1_est.set(0)
-var_amplitude2_est.set(1e-4)
+var_amplitude2_est.set(2e-4)
 var_frequency2_est.set(0.4)
 var_phase2_est.set(0)
 var_offset2_est.set(0)
