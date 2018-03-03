@@ -225,8 +225,8 @@ def redraw_axes():
     ax_pulse2.set_ylabel("pulses")
     ax_profile1.set_ylabel("profile")
     ax_profile2.set_ylabel("profile")
-    ax_residual1.set_ylabel("residuals ($\mu$sec)")
-    ax_residual2.set_ylabel("residuals ($\mu$sec)")
+    ax_residual1.set_ylabel("residuals ($\mu$s)")
+    ax_residual2.set_ylabel("residuals ($\mu$s)")
 
     canvas_pulse.draw()
     canvas_profile.draw()
