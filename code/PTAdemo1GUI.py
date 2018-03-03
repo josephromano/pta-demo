@@ -225,8 +225,8 @@ def redraw_axes():
     ax_pulse2.set_ylabel("pulses")
     ax_profile1.set_ylabel("profile")
     ax_profile2.set_ylabel("profile")
-    ax_residual1.set_ylabel("residuals (sec)")
-    ax_residual2.set_ylabel("residuals (sec)")
+    ax_residual1.set_ylabel("residuals ($\mu$sec)")
+    ax_residual2.set_ylabel("residuals ($\mu$sec)")
 
     canvas_pulse.draw()
     canvas_profile.draw()
@@ -350,7 +350,7 @@ def func_calresiduals(value=1):
 
         # plot residuals
         ax_residual1.cla()
-        ax_residual1.plot(residuals1[:,0], residuals1[:,1], 'b*')
+        ax_residual1.plot(residuals1[:,0], 1.e6*residuals1[:,1], 'b*')
         redraw_axes()
 
     if value == 2:
@@ -367,7 +367,7 @@ def func_calresiduals(value=1):
 
         # plot residuals
         ax_residual2.cla()
-        ax_residual2.plot(residuals2[:,0], residuals2[:,1], 'b*')
+        ax_residual2.plot(residuals2[:,0], 1.e6*residuals2[:,1], 'b*')
         redraw_axes()
 
     var_message.set("finished calculating residuals")
@@ -385,7 +385,7 @@ def func_detrendresiduals(value=1):
 
         # plot residuals
         ax_residual1.cla()
-        ax_residual1.plot(dtresiduals1[:,0], dtresiduals1[:,1], 'b*')
+        ax_residual1.plot(dtresiduals1[:,0], 1.e6*dtresiduals1[:,1], 'b*')
         redraw_axes()
 
     if value == 2:
@@ -398,7 +398,7 @@ def func_detrendresiduals(value=1):
 
         # plot residuals
         ax_residual2.cla()
-        ax_residual2.plot(dtresiduals2[:,0], dtresiduals2[:,1], 'b*')
+        ax_residual2.plot(dtresiduals2[:,0], 1.e6*dtresiduals2[:,1], 'b*')
         redraw_axes()
 
 

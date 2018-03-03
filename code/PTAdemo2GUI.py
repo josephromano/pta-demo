@@ -322,8 +322,8 @@ def redraw_axes():
     ax_pulse.set_ylabel("pulses")
     ax_profile1.set_ylabel("profile")
     ax_profile2.set_ylabel("profile")
-    ax_residual1.set_ylabel("residuals (sec)")
-    ax_residual2.set_ylabel("residuals (sec)")
+    ax_residual1.set_ylabel("residuals ($\mu$s)")
+    ax_residual2.set_ylabel("residuals ($\mu$s)")
 
     canvas_pulse.draw()
     canvas_profile.draw()
@@ -391,7 +391,7 @@ def func_calresiduals():
 
     # plot residuals
     ax_residual1.cla()
-    ax_residual1.errorbar(residuals1[:,0], residuals1[:,1], errorbars1[:,1], fmt='.')
+    ax_residual1.errorbar(residuals1[:,0], 1.e6*residuals1[:,1], 1.e6*errorbars1[:,1], fmt='.')
     redraw_axes()
 
     # calculate residuals
@@ -406,7 +406,7 @@ def func_calresiduals():
 
     # plot residuals
     ax_residual2.cla()
-    ax_residual2.errorbar(residuals2[:,0], residuals2[:,1], errorbars2[:,1], fmt='.')
+    ax_residual2.errorbar(residuals2[:,0], 1.e6*residuals2[:,1], 1.e6*errorbars2[:,1], fmt='.')
     redraw_axes()
 
     var_message.set("finished calculation of residuals")
@@ -443,8 +443,8 @@ def func_fitsinusoid():
 
     # plot residuals with constant removed and with best-fit sinusoid
     ax_residual1.cla()
-    ax_residual1.errorbar(residuals1[:,0], residuals1[:,1]-offset1, errorbars1[:,1], fmt='.')
-    ax_residual1.plot(tfit, yfit1, 'r-')
+    ax_residual1.errorbar(residuals1[:,0], 1.e6*(residuals1[:,1]-offset1), 1.e6*errorbars1[:,1], fmt='.')
+    ax_residual1.plot(tfit, 1.e6*yfit1, 'r-')
     redraw_axes()
 
     ############
@@ -475,8 +475,8 @@ def func_fitsinusoid():
 
     # plot residuals with constant removed and with best-fit sinusoid
     ax_residual2.cla()
-    ax_residual2.errorbar(residuals2[:,0], residuals2[:,1]-offset2, errorbars2[:,1], fmt='.')
-    ax_residual2.plot(tfit, yfit2, 'r-')
+    ax_residual2.errorbar(residuals2[:,0], 1.e6*(residuals2[:,1]-offset2), 1.e6*errorbars2[:,1], fmt='.')
+    ax_residual2.plot(tfit, 1.e6*yfit2, 'r-')
     redraw_axes()
 
     return yfit1, yfit2
