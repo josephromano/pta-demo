@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-Written by Michael Lam
+Written by Joseph Romano and Michael Lam
 '''
 
 from __future__ import division
