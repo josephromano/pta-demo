@@ -48,10 +48,6 @@ PLOTHEIGHT = 3.5
 # initialize some global variables
 ts1 = np.array([])
 ts2 = np.array([])
-T1 = 0.2885
-T2 = 0.3261
-#T1 = 0.299992
-#T2 = 0.499950
 profile1 = np.array([])
 profile2 = np.array([])
 residuals1 = np.array([])
@@ -60,6 +56,12 @@ dtresiduals1 = np.array([])
 dtresiduals2 = np.array([])
 errorbars1 = np.array([])
 errorbars2 = np.array([])
+
+# default values for periods
+T1 = 0.2885
+T2 = 0.3261
+#T1 = 0.299992
+#T2 = 0.499950
 
 root = Tk.Tk()
 #root.geometry('+1400+100')
@@ -193,7 +195,8 @@ fig_residual = Figure(figsize=(PLOTWIDTH,PLOTHEIGHT), dpi=75)
 ax_residual1 = fig_residual.add_subplot(211) #just for show
 ax_residual2 = fig_residual.add_subplot(212)
 
-fig_residual.subplots_adjust(wspace=0.5,left=0.30,bottom=0.20) #left allows enough space for the yaxis label to be read.
+#fig_residual.subplots_adjust(wspace=0.5,left=0.30,bottom=0.20) #left allows enough space for the yaxis label to be read.
+fig_residual.subplots_adjust(wspace=0.5,left=0.20,bottom=0.20) #left allows enough space for the yaxis label to be read.
 canvas_residual = FigureCanvasTkAgg(fig_residual, frame_residual)
 canvas_residual.get_tk_widget().grid(row=0)#,side=Tk.TOP)#,fill='x')
 canvas_residual.show()
@@ -286,7 +289,10 @@ def func_playback(value=1):
 def func_calprofile(value=1):
 
     if value == 1:
-        global ts1, profile1, T1
+        global ts1, profile1
+
+        # get default period from text entry box
+        T1 = np.float(var_T1.get())
 
         var_message.set("calculating pulse period and profile of metronome 1...")
         root.update()
@@ -311,7 +317,10 @@ def func_calprofile(value=1):
         np.savetxt(outfile1, profile1)
 
     if value == 2:
-        global ts2, profile2, T2
+        global ts2, profile2
+
+        # get default period from text entry box
+        T2 = np.float(var_T2.get())
 
         var_message.set("calculating pulse period and profile of metronome 2...")
         root.update()
@@ -337,7 +346,10 @@ def func_calprofile(value=1):
 def func_calresiduals(value=1):
 
     if value == 1:
-        global ts1, profile1, T1, residuals1, errorbars1
+        global ts1, profile1, residuals1, errorbars1
+
+        # get period from text entry box
+        T1 = np.float(var_T1.get())
 
         var_message.set("calculating residuals for metronome 1...")
         root.update()
@@ -354,7 +366,10 @@ def func_calresiduals(value=1):
         redraw_axes()
 
     if value == 2:
-        global ts2, profile2, T2, residuals2, errorbars2
+        global ts2, profile2, residuals2, errorbars2
+
+        # get period from text entry box
+        T2 = np.float(var_T2.get())
 
         var_message.set("calculating residuals for metronome 2...")
         root.update()
@@ -376,7 +391,10 @@ def func_calresiduals(value=1):
 def func_detrendresiduals(value=1):
 
     if value == 1:
-        global T1, residuals1, errorbars1, dtresiduals1
+        global residuals1, errorbars1, dtresiduals1
+
+        # get period from text entry box
+        T1 = np.float(var_T1.get())
 
         [dtresiduals1, b, m] = detrend(residuals1, errorbars1);
         N1 = len(residuals1[:,0])
@@ -389,7 +407,10 @@ def func_detrendresiduals(value=1):
         redraw_axes()
 
     if value == 2:
-        global T2, residuals2, errorbars2, dtresiduals2
+        global residuals2, errorbars2, dtresiduals2
+
+        # get period from text entry box
+        T2 = np.float(var_T2.get())
 
         [dtresiduals2, b, m] = detrend(residuals2, errorbars2);
         N2 = len(residuals2[:,0])

@@ -81,6 +81,7 @@ def calmeasuredTOAs(ts, template, Tp):
     # initialize variables
     tauhat = np.zeros(Np)
     Ahat = np.zeros(Np) 
+    error_tauhat = np.zeros(Np)
 
     # loop to find measured TOAs and amplitudes
     for ii in range(0,Np):
@@ -102,8 +103,15 @@ def calmeasuredTOAs(ts, template, Tp):
         brack = (ts[indices[0],0], ts[idx,0], ts[indices[-1],0])
 
         try:
-            tauhat[ii] = opt.brent(correlate, (tszp, templatezp, -norm), brack, 1e-07, 0, 500)
             badTOA = 0
+            tauhat[ii] = opt.brent(correlate, (tszp, templatezp, -norm), brack, 1e-07, 0, 500)
+            Ahat[ii] = correlate(tauhat[ii], tszp, templatezp, norm)
+
+            # error estimate for TOAs (based on correlation curve)
+            # basically, we can determine the max of the correlation to +/- 0.5 deltaT;
+            # multiply by 1/sqrt(Ahat(ii)) to increase error bar for small correlations
+            error_tauhat[ii] = 0.5*deltaT/np.sqrt(Ahat[ii])
+
         except:
             badTOA = 1
             print 'bad TOA, trying larger region'
@@ -123,8 +131,14 @@ def calmeasuredTOAs(ts, template, Tp):
             brack = (ts[indices[0],0], ts[idx,0], ts[indices[-1],0])
 
             try:
-                tauhat[ii] = opt.brent(correlate, (tszp, templatezp, -norm), brack, 1e-07, 0, 500)
                 badTOA = 0
+                tauhat[ii] = opt.brent(correlate, (tszp, templatezp, -norm), brack, 1e-07, 0, 500)
+                Ahat[ii] = correlate(tauhat[ii], tszp, templatezp, norm)
+
+                # error estimate for TOAs (based on correlation curve)
+                # increase error bar since you might might be getting the wrong peak!!
+                error_tauhat[ii] = 0.5*Tcorr
+
             except:
                 badTOA = 1
                 print 'bad TOA again, giving up'
@@ -134,8 +148,7 @@ def calmeasuredTOAs(ts, template, Tp):
         if badTOA:
             tauhat[ii] = np.nan
             Ahat[ii] = np.nan
-        else:
-            Ahat[ii] = correlate(tauhat[ii], tszp, templatezp, norm)
+            error_tauhat[ii] = np.nan
 
         # START DEBUG SECTION
         if DEBUG:
@@ -159,17 +172,6 @@ def calmeasuredTOAs(ts, template, Tp):
             #input('type any key to continue')
         # END DEBUG SECTION
     
-    # error estimate for TOAs (based on correlation curve)
-    # basically, we can determine the max of the correlation to +/- 0.5 deltaT;
-    # multiply by 1/sqrt(Ahat(ii)) to increase error bar for small correlations
-
-    ##Ahat_max = np.max(Ahat) # nan is max (which i don't want)
-    Ahat_max = max(Ahat)
-
-    error_tauhat = np.zeros(len(tauhat))
-    for ii in range(0, len(tauhat)):
-        error_tauhat[ii] = 0.5*deltaT/np.sqrt(Ahat[ii])
-        
     # assign output variables (only TOAs and their uncertainties needed)
     measuredTOAs = tauhat
     uncertainties = error_tauhat
