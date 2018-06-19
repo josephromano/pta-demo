@@ -37,7 +37,8 @@ else:
     import tkinter as Tk
 
 SEPARATOR_COLOR = "#CCCCCC"
-WIDTH = 1250
+#WIDTH = 1250
+WIDTH = 1350
 HEIGHT = 680
 
 PLOTWIDTH = 6
@@ -118,7 +119,8 @@ label_title.grid(row=0)
 separator = Tk.Frame(frame_main,width=WIDTH,height=2,bg=SEPARATOR_COLOR,bd=1, relief=Tk.SUNKEN).grid(row=1,pady=2)
 
 frame_plot = Tk.Frame(frame_main) #plotframe contains all of the plots and entries
-frame_plot.grid(row=2)
+#frame_plot.grid(row=2)
+frame_plot.grid(row=2, sticky='W', padx=2)
 
 separator = Tk.Frame(frame_main,width=WIDTH,height=2,bg=SEPARATOR_COLOR,bd=1, relief=Tk.SUNKEN).grid(row=3,pady=2)
 
