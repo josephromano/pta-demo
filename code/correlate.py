@@ -18,9 +18,9 @@ def correlate(tau, x, y, norm):
     # calculate discrete frequencies 
     fNyq = 1.0/(2*deltaT)
     if ( np.mod(N,2)== 0 ):
-        numFreqs = N/2 - 1
+        numFreqs = int(N/2 - 1)
     else:
-        numFreqs = (N-1)/2
+        numFreqs = int((N-1)/2)
 
     # discrete positive frequencies
     fp = np.linspace(deltaF, numFreqs*deltaF, numFreqs)
@@ -46,7 +46,7 @@ def correlate(tau, x, y, norm):
     ## if tau corresponded to a bin, could use ifft routine C(tau)=D[ndx]
     #D = N * deltaF * np.fft.ifft(xtilde * np.conj(ytilde))
     #D = np.real(D) # take real part to avoid imag component from round-off 
-    #ndx = np.int(tau/deltaT)
+    #ndx = int(tau/deltaT)
     #print C, D[ndx]
     
     return C

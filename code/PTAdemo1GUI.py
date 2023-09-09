@@ -18,7 +18,7 @@ from matplotlib.ticker import *#MultipleLocator, FormatStrFormatter, LogLocator
 import numpy as np
 
 from recordpulses import *
-from playpulses import *
+from playsoundfile import *
 from calpulseperiod import *
 from calpulseprofile import *
 from caltemplate import *
@@ -122,7 +122,7 @@ ax_pulse2 = fig_pulse.add_subplot(212)
 fig_pulse.subplots_adjust(wspace=0.5,left=0.20,bottom=0.20) #left allows enough space for the yaxis label to be read.
 canvas_pulse = FigureCanvasTkAgg(fig_pulse, frame_pulse)
 canvas_pulse.get_tk_widget().grid(row=0)#,side=Tk.TOP)#,fill='x')
-canvas_pulse.show()
+canvas_pulse.draw()
 
 canvas_pulse._tkcanvas.grid(row=1)#, fill=Tk.BOTH, expand=1)
 
@@ -142,7 +142,7 @@ ax_profile2 = fig_profile.add_subplot(212)
 fig_profile.subplots_adjust(wspace=0.5,left=0.20,bottom=0.20) #left allows enough space for the yaxis label to be read.
 canvas_profile = FigureCanvasTkAgg(fig_profile, frame_profile)
 canvas_profile.get_tk_widget().grid(row=0)#,side=Tk.TOP)#,fill='x')
-canvas_profile.show()
+canvas_profile.draw()
 
 canvas_profile._tkcanvas.grid(row=1)#, fill=Tk.BOTH, expand=1)
 
@@ -199,7 +199,7 @@ ax_residual2 = fig_residual.add_subplot(212)
 fig_residual.subplots_adjust(wspace=0.5,left=0.20,bottom=0.20) #left allows enough space for the yaxis label to be read.
 canvas_residual = FigureCanvasTkAgg(fig_residual, frame_residual)
 canvas_residual.get_tk_widget().grid(row=0)#,side=Tk.TOP)#,fill='x')
-canvas_residual.show()
+canvas_residual.draw()
 
 canvas_residual._tkcanvas.grid(row=1)#, fill=Tk.BOTH, expand=1)
 
@@ -260,7 +260,7 @@ def func_playback(value=1):
         var_message.set("playing back recorded data for metronome 1...")
         root.update()
 
-        ts1 = playpulses(var_metronome1filename.get()+".txt")
+        ts1 = playsoundfile(var_metronome1filename.get())
         ax_pulse1.cla()
         ax_pulse1.plot(ts1[:,0], ts1[:,1])
         redraw_axes()
@@ -276,7 +276,7 @@ def func_playback(value=1):
         var_message.set("playing back recorded data for metronome 2...")
         root.update()
 
-        ts2 = playpulses(var_metronome2filename.get()+".txt")
+        ts2 = playsoundfile(var_metronome2filename.get())
         ax_pulse2.cla()
         ax_pulse2.plot(ts2[:,0], ts2[:,1])
         redraw_axes()
@@ -301,7 +301,7 @@ def func_calprofile(value=1):
             profile1 = np.loadtxt(var_metronome1filename.get()+"_profile.txt")
         except:
             [profile1, T1] = calpulseprofile(ts1, var_metronome1bpm.get())        
-            print 'T1 = ', T1, 'sec'
+            print('T1 = ', T1, 'sec')
             var_T1.set(T1)
             # write pulse profile to file
             outfile1 = var_metronome1filename.get()+"_profile.txt"
@@ -329,7 +329,7 @@ def func_calprofile(value=1):
             profile2 = np.loadtxt(var_metronome2filename.get()+"_profile.txt")
         except:
             [profile2, T2] = calpulseprofile(ts2, var_metronome2bpm.get())        
-            print 'T2 = ', T2, 'sec'
+            print('T2 = ', T2, 'sec')
             var_T2.set(T2)
             # write pulse profile to file
             outfile2 = var_metronome2filename.get()+"_profile.txt"

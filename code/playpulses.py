@@ -37,7 +37,7 @@ def playpulses(filename):
 
     data = wf.readframes(CHUNK)
 
-    while data != '':
+    while data != b'':
         stream.write(data)
         data = wf.readframes(CHUNK)
 

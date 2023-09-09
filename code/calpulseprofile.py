@@ -23,7 +23,7 @@ def calpulseprofile(ts, bpm):
     profile = np.zeros([Nf,2]) 
 
     # first make sure that max of profile is in [0, Tp/2]
-    Nby2 = np.int(np.floor(Nf/2))-1
+    Nby2 = int(np.floor(Nf/2))-1
     ndx = np.argmax(yf)
     if ndx > Nby2:
         temp = np.concatenate((yf[Nby2:Nf], yf[0:Nby2]),0)

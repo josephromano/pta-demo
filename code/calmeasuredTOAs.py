@@ -54,7 +54,7 @@ def calmeasuredTOAs(ts, template, Tp):
     C0 = C[ind0]
     
     # use brent's method to find max
-    print 'calculating reference TOA'
+    print('calculating reference TOA')
 
     if ind0 - m < 0: 
         indices = range(0, ind0+m+1)
@@ -72,7 +72,7 @@ def calmeasuredTOAs(ts, template, Tp):
     N2 = int(np.floor((ts[-1,0]-t0)/Tp))
     Np = N1 + N2 + 1
     n0 = N1 + 1; # reference pulse number
-    print 'reference TOA (n=', n0, ') has correlation=', A0
+    print('reference TOA (n=', n0, ') has correlation=', A0)
 
     # calculate expected indices of TOAs
     tmp = ind0 + np.round(np.linspace((Tp/deltaT)*(1-n0), (Tp/deltaT)*(Np-n0), Np));
@@ -86,7 +86,7 @@ def calmeasuredTOAs(ts, template, Tp):
     # loop to find measured TOAs and amplitudes
     for ii in range(0,Np):
     
-        print 'calculating TOA', ii+1
+        print('calculating TOA', ii+1)
         expected = expected_ind[ii]
 
         # search in a small region around expected arrival time
@@ -114,7 +114,7 @@ def calmeasuredTOAs(ts, template, Tp):
 
         except:
             badTOA = 1
-            print 'bad TOA, trying larger region'
+            print('bad TOA, trying larger region')
 
             #################
             # search in a larger region around expected arrival time
@@ -141,7 +141,7 @@ def calmeasuredTOAs(ts, template, Tp):
 
             except:
                 badTOA = 1
-                print 'bad TOA again, giving up'
+                print('bad TOA again, giving up')
             #################
 
         # set tauhat, Ahat to nan if brent's method can't find maximum
@@ -156,8 +156,8 @@ def calmeasuredTOAs(ts, template, Tp):
             plt.figure()
             plt.plot(ts[indices,0], C[indices], '-*r', label = 'correlation') 
             plt.plot(ts[indices,0], ts[indices,1], '-*b', label = 'time series')
-	    if ~badTOA:
-	        plt.plot(tauhat[ii]-ts[idx,0]+ts[idx:indices[-1]+1,0], 
+            if ~badTOA:
+                plt.plot(tauhat[ii]-ts[idx,0]+ts[idx:indices[-1]+1,0], 
                          template[0:len(indices)-(idx-indices[0]),1], 
 			 '-*g', label = 'template') 
             plt.axhline(y = template[0,1], color='k') # starting value of pulse template
@@ -168,7 +168,7 @@ def calmeasuredTOAs(ts, template, Tp):
             plt.ylabel('correlation')
             plt.legend(loc = 'best')
             plt.title('n = ' + np.str(ii+1))
-            print tauhat[ii]-TOAexp
+            print(tauhat[ii]-TOAexp)
             #input('type any key to continue')
         # END DEBUG SECTION
     
