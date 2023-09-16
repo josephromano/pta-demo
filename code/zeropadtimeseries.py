@@ -11,8 +11,8 @@ def zeropadtimeseries(x, T):
     ######################
     # special case: no zero-padding if T=0
     if T==0:
-	y = x
-	return y
+        y = x
+        return y
 
     ######################
     # normal case
