@@ -91,7 +91,7 @@ var_corrcoeff = Tk.DoubleVar()
 var_message = Tk.StringVar()
 
 # default values for variables
-var_timeseriesfilename.set("m208a184b0")
+var_timeseriesfilename.set("m208a184b135")
 var_profile1filename.set("m208a_profile")
 var_profile2filename.set("m184b_profile")
 var_T1.set(T1)
@@ -146,7 +146,7 @@ ax_pulse = fig_pulse.add_subplot(111) #just for show
 fig_pulse.subplots_adjust(wspace=0.5,left=0.20,bottom=0.20) #left allows enough space for the yaxis label to be read.
 canvas_pulse = FigureCanvasTkAgg(fig_pulse, frame_pulse)
 canvas_pulse.get_tk_widget().grid(row=0)#,side=Tk.TOP)#,fill='x')
-canvas_pulse.show()
+canvas_pulse.draw()
 
 canvas_pulse._tkcanvas.grid(row=1)#, fill=Tk.BOTH, expand=1)
 
@@ -166,7 +166,7 @@ ax_profile2 = fig_profile.add_subplot(212)
 fig_profile.subplots_adjust(wspace=0.5,left=0.20,bottom=0.20) #left allows enough space for the yaxis label to be read.
 canvas_profile = FigureCanvasTkAgg(fig_profile, frame_profile)
 canvas_profile.get_tk_widget().grid(row=0)#,side=Tk.TOP)#,fill='x')
-canvas_profile.show()
+canvas_profile.draw()
 
 canvas_profile._tkcanvas.grid(row=1)#, fill=Tk.BOTH, expand=1)
 
@@ -304,7 +304,7 @@ ax_residual2 = fig_residual.add_subplot(212)
 fig_residual.subplots_adjust(wspace=0.5,left=0.20,bottom=0.20) #left allows enough space for the yaxis label to be read.
 canvas_residual = FigureCanvasTkAgg(fig_residual, frame_residual)
 canvas_residual.get_tk_widget().grid(row=0)#,side=Tk.TOP)#,fill='x')
-canvas_residual.show()
+canvas_residual.draw()
 
 canvas_residual._tkcanvas.grid(row=1)#, fill=Tk.BOTH, expand=1)
 
@@ -385,8 +385,8 @@ def func_calresiduals():
     global ts, residuals1, residuals2, errorbars1, errorbars2
 
     # get period from text entry boxes
-    T1 = np.float(var_T1.get())
-    T2 = np.float(var_T2.get())
+    T1 = np.float64(var_T1.get())
+    T2 = np.float64(var_T2.get())
 
     # calculate residuals
     var_message.set("calculating residuals for metronome 1...")
