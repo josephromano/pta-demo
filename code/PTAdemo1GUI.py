@@ -18,7 +18,7 @@ from matplotlib.ticker import *#MultipleLocator, FormatStrFormatter, LogLocator
 import numpy as np
 
 from recordpulses import *
-from playsoundfile import *
+from playpulses import *
 from calpulseperiod import *
 from calpulseprofile import *
 from caltemplate import *
@@ -260,7 +260,7 @@ def func_playback(value=1):
         var_message.set("playing back recorded data for metronome 1...")
         root.update()
 
-        ts1 = playsoundfile(var_metronome1filename.get())
+        ts1 = playpulses(var_metronome1filename.get()+".txt")
         ax_pulse1.cla()
         ax_pulse1.plot(ts1[:,0], ts1[:,1])
         redraw_axes()
@@ -276,7 +276,7 @@ def func_playback(value=1):
         var_message.set("playing back recorded data for metronome 2...")
         root.update()
 
-        ts2 = playsoundfile(var_metronome2filename.get())
+        ts2 = playpulses(var_metronome2filename.get()+".txt")
         ax_pulse2.cla()
         ax_pulse2.plot(ts2[:,0], ts2[:,1])
         redraw_axes()
@@ -292,7 +292,7 @@ def func_calprofile(value=1):
         global ts1, profile1
 
         # get default period from text entry box
-        T1 = np.float(var_T1.get())
+        T1 = np.float64(var_T1.get())
 
         var_message.set("calculating pulse period and profile of metronome 1...")
         root.update()
@@ -320,7 +320,7 @@ def func_calprofile(value=1):
         global ts2, profile2
 
         # get default period from text entry box
-        T2 = np.float(var_T2.get())
+        T2 = np.float64(var_T2.get())
 
         var_message.set("calculating pulse period and profile of metronome 2...")
         root.update()
@@ -353,7 +353,7 @@ def func_calresiduals(value=1):
         global ts1, profile1, residuals1, errorbars1
 
         # get period from text entry box
-        T1 = np.float(var_T1.get())
+        T1 = np.float64(var_T1.get())
 
         var_message.set("calculating residuals for metronome 1...")
         root.update()
@@ -373,7 +373,7 @@ def func_calresiduals(value=1):
         global ts2, profile2, residuals2, errorbars2
 
         # get period from text entry box
-        T2 = np.float(var_T2.get())
+        T2 = np.float64(var_T2.get())
 
         var_message.set("calculating residuals for metronome 2...")
         root.update()
@@ -398,7 +398,7 @@ def func_detrendresiduals(value=1):
         global residuals1, errorbars1, dtresiduals1
 
         # get period from text entry box
-        T1 = np.float(var_T1.get())
+        T1 = np.float64(var_T1.get())
 
         [dtresiduals1, b, m] = detrend(residuals1, errorbars1);
         N1 = len(residuals1[:,0])
@@ -414,7 +414,7 @@ def func_detrendresiduals(value=1):
         global residuals2, errorbars2, dtresiduals2
 
         # get period from text entry box
-        T2 = np.float(var_T2.get())
+        T2 = np.float64(var_T2.get())
 
         [dtresiduals2, b, m] = detrend(residuals2, errorbars2);
         N2 = len(residuals2[:,0])
