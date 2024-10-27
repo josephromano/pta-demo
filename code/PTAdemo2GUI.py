@@ -91,7 +91,7 @@ var_corrcoeff = Tk.DoubleVar()
 var_message = Tk.StringVar()
 
 # default values for variables
-var_timeseriesfilename.set("m208a184b135")
+var_timeseriesfilename.set("m208a184b0")
 var_profile1filename.set("m208a_profile")
 var_profile2filename.set("m184b_profile")
 var_T1.set(T1)
